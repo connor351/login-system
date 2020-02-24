@@ -32,15 +32,23 @@ def get_pass():
     global salt
     global real_hash
     global x
+
+    # get password entry attempt from user and create a hash using the password the user has given me
     user_pass = input("Please enter the password associated with " + user_name + ":")
     guess_hash = hashlib.sha256(user_pass.encode() + salt.encode()).hexdigest()
+
+    # compare the new hash and the real hash
     if guess_hash == real_hash:
+        # if they match then grant access
         print("Access granted!")
+    # if hashes dont match, give user another attempt (3 total)
     elif x > 0:
         print("Incorrect password. Attempts remaining: ", x)
+        # countdown to denying access
         x = x - 1
         get_pass()
     else:
+        # if all attmepts are gone and hashes still dont match then deny access and end program
         print("Access Denied!")
         print("Exiting...")
         
@@ -49,6 +57,7 @@ user_name = ""
 user_name = input("Username: ")
 get_user()
 print("User found!")
+# x is used to countdown password entry attempts
 x = 3
 get_pass()
 
