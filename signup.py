@@ -1,4 +1,4 @@
-# Secure login system attempt
+# Sign up program
 # Connor Campbell 24/02/2020
 
 # import libraries needed
@@ -10,6 +10,7 @@ user_name = input("Please enter a username: ")
 user_pass = input("Please enter a password: ")
 
 # create a random salt generator
+# SJ: If you import string, you can use ascii_lowercase etc.
 salt_list = ['A', 'B', 'C', 'X', 'Y', 'Z', '1', '2', '3', '8', '9', '0']
 salt = "".join([random.choice(salt_list) for _ in range (0, 64)])
 

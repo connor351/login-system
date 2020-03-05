@@ -1,4 +1,4 @@
-# login system checker attempt
+# Login program
 # Connor Campbell 24/02/2020
 
 # import needed libraries
@@ -20,20 +20,22 @@ def get_user():
                 found = True
                 salt = details[1]
                 real_hash = details[2]
-    # if found is not true then ask for another username from the user and re run the check_name function
+    # if found is not true then ask for another username from the user
+    # and re run the check_name function
     if found != True:
+        # SJ: Look at implementing same "Password or username incorrect" behaviour.
         user_name = input("User not found, please re-enter username: ")
         get_user()
-
-    return user_name
+        
 # get a password from the user
-def get_pass():
+def get_pass(x):
     global user_name
     global salt
     global real_hash
-    global x
 
-    # get password entry attempt from user and create a hash using the password the user has given me
+    # get password entry attempt from user and create a hash using the
+    # password the user has given me
+    # SJ: Look in to getpass().
     user_pass = input("Please enter the password associated with " + user_name + ":")
     guess_hash = hashlib.sha256(user_pass.encode() + salt.encode()).hexdigest()
 
@@ -46,19 +48,19 @@ def get_pass():
         print("Incorrect password. Attempts remaining: ", x)
         # countdown to denying access
         x = x - 1
-        get_pass()
+        get_pass(x)
     else:
-        # if all attmepts are gone and hashes still dont match then deny access and end program
+        # if all attmepts are gone and hashes still dont match then deny
+        # access and end program
         print("Access Denied!")
         print("Exiting...")
         
 # main program
-user_name = ""
 user_name = input("Username: ")
 get_user()
 print("User found!")
 # x is used to countdown password entry attempts
 x = 3
-get_pass()
+get_pass(x)
 
     
